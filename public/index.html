@@ -1,1 +1,632 @@
-OK
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faceless Studio — One idea in, one video out</title>
+<meta name="description" content="Faceless Studio turns a single topic into a finished, publish-ready video — script, voice-over, footage, subtitles, titles, and SEO, all in one click.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  body{
+    font-size: 1.2em;
+  }
+</style>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#12151B',
+          panel: '#1B2029',
+          panel2: '#232A36',
+          paper: '#F4F1E9',
+          amber: '#FFB627',
+          amberdeep: '#E39A0C',
+          teal: '#2FA8A0',
+          muted: '#8A93A6',
+          line: '#2C3340',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+      },
+    },
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 84px; }
+
+  body { background-color: #12151B; }
+
+  /* Sprocket-hole divider — the page's signature motif */
+  .sprocket {
+    height: 28px;
+    background-image: radial-gradient(circle, rgba(244,241,233,0.14) 3px, transparent 3.2px);
+    background-size: 26px 26px;
+    background-position: center;
+    background-repeat: repeat-x;
+    opacity: 0.9;
+  }
+
+  .rec-dot {
+    box-shadow: 0 0 0 0 rgba(255,182,39, 0.6);
+    animation: recpulse 2.2s infinite;
+  }
+  @keyframes recpulse {
+    0%   { box-shadow: 0 0 0 0 rgba(255,182,39, 0.55); }
+    70%  { box-shadow: 0 0 0 10px rgba(255,182,39, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,182,39, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rec-dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-line {
+    background: linear-gradient(to bottom, #FFB627, #2FA8A0 60%, transparent);
+  }
+
+  ::selection { background: #FFB627; color: #12151B; }
+
+  .pill {
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .pill.active {
+    background-color: #FFB627;
+    color: #12151B;
+    border-color: #FFB627;
+  }
+</style>
+</head>
+
+<body class="bg-ink text-paper font-body antialiased">
+
+<!-- ===================== NAV ===================== -->
+<header class="fixed top-0 inset-x-0 z-50 bg-ink/90 backdrop-blur border-b border-line">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5 font-display text-lg tracking-tight">
+      <span class="w-2.5 h-2.5 rounded-full bg-amber rec-dot"></span>
+      Faceless Studio
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 text-sm text-muted font-medium">
+      <a href="#features" class="hover:text-paper transition-colors">Features</a>
+      <a href="#pricing" class="hover:text-paper transition-colors">Pricing</a>
+      <a href="#how-it-works" class="hover:text-paper transition-colors">How it works</a>
+      <a href="#contact" class="hover:text-paper transition-colors">Contact</a>
+    </nav>
+
+    <a data-cta href="#" class="hidden md:inline-flex items-center rounded-full bg-amber text-ink text-sm font-semibold px-4 py-2 hover:bg-amberdeep transition-colors">
+      Download for free
+    </a>
+
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="md:hidden text-paper">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div id="mobileMenu" class="hidden md:hidden border-t border-line bg-ink px-6 py-4 space-y-4 text-sm">
+    <a href="#features" class="block text-muted hover:text-paper">Features</a>
+    <a href="#pricing" class="block text-muted hover:text-paper">Pricing</a>
+    <a href="#how-it-works" class="block text-muted hover:text-paper">How it works</a>
+    <a data-cta href="#" class="block rounded-full bg-amber text-ink text-center font-semibold px-4 py-2">Download for free</a>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section id="top" class="relative pt-40 pb-24 px-6 overflow-hidden">
+  <div class="max-w-4xl mx-auto text-center">
+    
+
+    <h1 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.08] tracking-tight text-paper">
+      Type an idea.<br>
+      Get finished video.
+    </h1>
+
+    <p class="mt-6 text-lg text-muted max-w-2xl mx-auto leading-relaxed">
+      Faceless Studio writes the script, finds the footage, voices it, subtitles it,
+      and assembles the whole video — for YouTube, TikTok, Instagram, and Facebook —
+      without you ever stepping in front of a camera.
+    </p>
+
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a data-cta href="#" class="w-full sm:w-auto inline-flex justify-center items-center rounded-full bg-amber text-ink font-semibold px-7 py-3.5 hover:bg-amberdeep transition-colors">
+        Download Software
+      </a>
+      <a href="#get-started" class="w-full sm:w-auto inline-flex justify-center items-center rounded-full border border-line text-paper font-medium px-7 py-3.5 hover:border-muted transition-colors">
+        See how it works ↓
+      </a>
+    </div>
+
+    <p class="mt-8 text-sm text-muted font-mono">
+      Hi I am Partho, built it to cut our own production costs and speed up publishing. Now selling it to help others too.
+    </p>
+  </div>
+</section>
+
+<div class="sprocket"></div>
+
+<!-- ===================== 3-STEP MAGIC MOMENT ===================== -->
+<section id="get-started" class="py-24 px-6 bg-panel">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="font-mono text-xs uppercase tracking-widest text-teal mb-3">How you use it</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Three steps. That's the whole workflow.</h2>
+      <p class="mt-4 text-muted max-w-xl mx-auto">No timelines to drag. No clips to trim. You only ever do this part —
+        the tool does the rest.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="reveal bg-panel2 border border-line rounded-2xl p-7">
+        <span class="font-mono text-sm text-amber">Step 1</span>
+        <h3 class="font-display text-xl mt-3 mb-2">Enter a topic</h3>
+        <p class="text-muted text-sm leading-relaxed">Type the subject of your video in plain words — that's the only required input.</p>
+      </div>
+      <div class="reveal bg-panel2 border border-line rounded-2xl p-7">
+        <span class="font-mono text-sm text-amber">Step 2</span>
+        <h3 class="font-display text-xl mt-3 mb-2">Add hints (optional)</h3>
+        <p class="text-muted text-sm leading-relaxed">Want a specific angle or tone? Leave a short note on how the script should be written.</p>
+      </div>
+      <div class="reveal bg-panel2 border border-line rounded-2xl p-7">
+        <span class="font-mono text-sm text-amber">Step 3</span>
+        <h3 class="font-display text-xl mt-3 mb-2">Click "Create Video"</h3>
+        <p class="text-muted text-sm leading-relaxed">That's it. Faceless Studio takes it from a one-line idea to a finished video automatically.</p>
+      </div>
+    </div>
+
+    <div class="reveal mt-16">
+      <div class="relative w-full max-w-3xl mx-auto rounded-2xl overflow-hidden border border-line" style="padding-top: 56.25%;">
+        <iframe
+          class="absolute top-0 left-0 w-full h-full"
+          src="https://www.youtube.com/embed/HuO2YRcBztI"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-policy"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<div class="sprocket bg-panel"></div>
+
+<!-- ===================== FEATURES PART 1: WHAT YOU GET ===================== -->
+<section id="features" class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="font-mono text-xs uppercase tracking-widest text-teal mb-3">What you get</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">It's not just a video file.</h2>
+      <p class="mt-4 text-muted max-w-xl mx-auto">Every generation produces a full, upload-ready package — the video, plus
+        everything you'd normally write yourself afterward.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="reveal bg-panel border border-line rounded-2xl p-6">
+        <h3 class="font-display text-lg mb-2">Title variations</h3>
+        <p class="text-muted text-sm leading-relaxed">Several title options generated per video, so you can pick — or A/B test — the one that fits best.</p>
+      </div>
+      <div class="reveal bg-panel border border-line rounded-2xl p-6">
+        <h3 class="font-display text-lg mb-2">Description</h3>
+        <p class="text-muted text-sm leading-relaxed">A ready-to-publish video description, written to match the script's content.</p>
+      </div>
+      <div class="reveal bg-panel border border-line rounded-2xl p-6">
+        <h3 class="font-display text-lg mb-2">Hashtags</h3>
+        <p class="text-muted text-sm leading-relaxed">Relevant hashtags for the platform you're publishing to, generated automatically.</p>
+      </div>
+      <div class="reveal bg-panel border border-line rounded-2xl p-6">
+        <h3 class="font-display text-lg mb-2">Thumbnail</h3>
+        <p class="text-muted text-sm leading-relaxed">A thumbnail prompt or ready-made thumbnail asset, built to match your topic.</p>
+      </div>
+      <div class="reveal bg-panel border border-line rounded-2xl p-6">
+        <h3 class="font-display text-lg mb-2">SEO, done</h3>
+        <p class="text-muted text-sm leading-relaxed">Titles, description, and tags are optimized together — not written in isolation.</p>
+      </div>
+      <div class="reveal bg-panel border border-line rounded-2xl p-6 flex flex-col justify-center">
+        <p class="text-sm text-muted leading-relaxed"><span class="text-paper font-medium">In short:</span> you leave with everything needed to hit publish — not just footage to edit later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SCRIPT REVIEW / CONTROL ===================== -->
+<section class="py-24 px-6 bg-panel">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div class="reveal">
+      <p class="font-mono text-xs uppercase tracking-widest text-teal mb-3">Staying in control</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-paper mb-5">Read the script before it becomes a video.</h2>
+      <p class="text-muted leading-relaxed mb-4">
+        Before any footage or voice-over is generated, Faceless Studio shows you the full script.
+        You can edit it directly, then approve it to continue.
+      </p>
+      <p class="text-muted leading-relaxed">
+        <span class="text-paper font-medium">Our recommendation:</span> always take a minute to review it.
+        AI-written scripts are usually good, but they don't always match exactly what you intended to say —
+        a quick read-through catches that before it's locked into a finished video.
+      </p>
+    </div>
+
+    <div class="reveal bg-panel2 border border-line rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <span class="font-mono text-xs text-muted uppercase tracking-widest">AI draft</span>
+        <span class="text-amber text-xs font-mono">awaiting review</span>
+      </div>
+      <p class="text-sm text-muted leading-relaxed border-l-2 border-line pl-4 mb-6">
+        "Most people think discipline is about willpower. It's not. It's about..."
+      </p>
+      <div class="flex items-center justify-center gap-2 text-muted text-xs font-mono mb-6">
+        <span>edit</span><span class="text-teal">→</span><span>approve</span><span class="text-teal">→</span><span>continue</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="font-mono text-xs text-muted uppercase tracking-widest">Your version</span>
+        <span class="text-teal text-xs font-mono">approved ✓</span>
+      </div>
+      <p class="text-sm text-paper leading-relaxed border-l-2 border-teal pl-4 mt-4">
+        "Most people think discipline is about willpower. It's not. It's about your environment..."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURES PART 2: CUSTOMIZATION ===================== -->
+<section class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-14">
+      <p class="font-mono text-xs uppercase tracking-widest text-teal mb-3">Make it yours</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Every video can be shaped to fit your channel.</h2>
+      <p class="mt-4 text-muted max-w-xl mx-auto">Set these once, or change them per video. Faceless Studio handles the rest —
+        including choosing visuals and motion graphics that match what's being said.</p>
+    </div>
+
+    <div class="reveal bg-panel border border-line rounded-2xl p-8">
+      <div class="grid sm:grid-cols-2 gap-8">
+
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-muted mb-3">Format</p>
+          <div class="flex gap-2 flex-wrap">
+            <button type="button" class="pill active border border-line rounded-full px-4 py-1.5 text-sm">Portrait</button>
+            <button type="button" class="pill border border-line rounded-full px-4 py-1.5 text-sm text-muted">Landscape</button>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-muted mb-3">Length</p>
+          <div class="flex gap-2 flex-wrap">
+            <button type="button" class="pill border border-line rounded-full px-4 py-1.5 text-sm text-muted">Short (&lt;60s)</button>
+            <button type="button" class="pill active border border-line rounded-full px-4 py-1.5 text-sm">Long-form</button>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-muted mb-3">Background music</p>
+          <div class="flex gap-2 flex-wrap">
+            <button type="button" class="pill active border border-line rounded-full px-4 py-1.5 text-sm">On</button>
+            <button type="button" class="pill border border-line rounded-full px-4 py-1.5 text-sm text-muted">Off</button>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-muted mb-3">Speaking style</p>
+          <div class="flex gap-2 flex-wrap">
+            <button type="button" class="pill active border border-line rounded-full px-4 py-1.5 text-sm">Standard</button>
+            <button type="button" class="pill border border-line rounded-full px-4 py-1.5 text-sm text-muted">Emotional</button>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-muted mb-3">Script &amp; voice-over language</p>
+          <div class="flex gap-2 flex-wrap">
+            <button type="button" class="pill active border border-line rounded-full px-4 py-1.5 text-sm">English</button>
+            <button type="button" class="pill border border-line rounded-full px-4 py-1.5 text-sm text-muted">Bangla</button>
+            <button type="button" class="pill border border-line rounded-full px-4 py-1.5 text-sm text-muted">+ more</button>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-muted mb-3">Subtitle language</p>
+          <div class="flex gap-2 flex-wrap">
+            <button type="button" class="pill active border border-line rounded-full px-4 py-1.5 text-sm">Same as audio</button>
+            <button type="button" class="pill border border-line rounded-full px-4 py-1.5 text-sm text-muted">Different language</button>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="text-xs text-muted font-mono mt-8 pt-6 border-t border-line">
+        Voice-over voice is also selectable per video — this panel is a preview of the options, not the live app.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sprocket"></div>
+
+<!-- ===================== PUBLISHING PATHS ===================== -->
+<section class="py-24 px-6 bg-panel">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal text-center mb-14">
+      <p class="font-mono text-xs uppercase tracking-widest text-teal mb-3">Once it's ready</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Two ways to get it live.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="reveal bg-panel2 border border-line rounded-2xl p-8">
+        <h3 class="font-display text-xl mb-3">Download it</h3>
+        <p class="text-muted text-sm leading-relaxed mb-6">Save the finished video and post it yourself, on your own schedule, to any platform.</p>
+        <a data-cta href="#" class="inline-flex items-center gap-2 text-amber text-sm font-semibold hover:text-amberdeep">
+          Download a sample →
+        </a>
+      </div>
+      <div class="reveal bg-panel2 border border-line rounded-2xl p-8">
+        <h3 class="font-display text-xl mb-3">Auto-upload to YouTube</h3>
+        <p class="text-muted text-sm leading-relaxed mb-6">Connect your YouTube account once. After that, approved videos can upload automatically — titles, description, and tags included.</p>
+        <span class="inline-flex items-center gap-2 text-teal text-sm font-semibold">
+          Connect account →
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS: PIPELINE ===================== -->
+<section id="how-it-works" class="py-24 px-6">
+  <div class="max-w-3xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="font-mono text-xs uppercase tracking-widest text-teal mb-3">Behind the scenes</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">What actually happens after you click "Create."</h2>
+      <p class="mt-4 text-muted max-w-xl mx-auto">One click looks simple from the outside. Here's the real sequence running underneath it.</p>
+    </div>
+
+    <ol class="relative pl-10">
+      <div class="absolute left-[11px] top-2 bottom-2 w-px timeline-line"></div>
+
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-amber flex items-center justify-center font-mono text-[10px]">01</span>
+        <h3 class="font-display text-lg mb-1">Your idea gets expanded</h3>
+        <p class="text-muted text-sm leading-relaxed">The AI takes your topic and hints and builds it out into a full concept before writing anything.</p>
+      </li>
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-line flex items-center justify-center font-mono text-[10px]">02</span>
+        <h3 class="font-display text-lg mb-1">A complete script is written</h3>
+        <p class="text-muted text-sm leading-relaxed">This is the draft you'll review and can edit before anything else happens.</p>
+      </li>
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-line flex items-center justify-center font-mono text-[10px]">03</span>
+        <h3 class="font-display text-lg mb-1">The system searches for footage</h3>
+        <p class="text-muted text-sm leading-relaxed">It searches a large stock footage library for clips relevant to the script.</p>
+      </li>
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-line flex items-center justify-center font-mono text-[10px]">04</span>
+        <h3 class="font-display text-lg mb-1">Clips are blended, not repeated</h3>
+        <p class="text-muted text-sm leading-relaxed">Footage is combined from many different clips, instead of leaning on one source repeatedly.</p>
+      </li>
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-line flex items-center justify-center font-mono text-[10px]">05</span>
+        <h3 class="font-display text-lg mb-1">Visuals are matched to the words</h3>
+        <p class="text-muted text-sm leading-relaxed">Each visual is chosen to match what's actually being said at that moment in the script. Relevant motion graphics are added automatically where they fit.</p>
+      </li>
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-line flex items-center justify-center font-mono text-[10px]">06</span>
+        <h3 class="font-display text-lg mb-1">A voice-over is generated</h3>
+        <p class="text-muted text-sm leading-relaxed">Using the voice, language, and speaking style you selected.</p>
+      </li>
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-line flex items-center justify-center font-mono text-[10px]">07</span>
+        <h3 class="font-display text-lg mb-1">Subtitles are created</h3>
+        <p class="text-muted text-sm leading-relaxed">Generated automatically, in the subtitle language you chose — the same as the audio, or different.</p>
+      </li>
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-line flex items-center justify-center font-mono text-[10px]">08</span>
+        <h3 class="font-display text-lg mb-1">Key words get highlighted</h3>
+        <p class="text-muted text-sm leading-relaxed">Important words and phrases can appear in a different subtitle color, drawing the eye at the right moment.</p>
+      </li>
+      <li class="reveal relative pb-10">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-line flex items-center justify-center font-mono text-[10px]">09</span>
+        <h3 class="font-display text-lg mb-1">Everything stays in sync</h3>
+        <p class="text-muted text-sm leading-relaxed">Subtitles are timed to match the spoken audio exactly, all the way through.</p>
+      </li>
+      <li class="reveal relative">
+        <span class="absolute -left-10 top-0.5 w-6 h-6 rounded-full bg-ink border-2 border-teal flex items-center justify-center font-mono text-[10px]">10</span>
+        <h3 class="font-display text-lg mb-1">It's all assembled automatically</h3>
+        <p class="text-muted text-sm leading-relaxed">Script, footage, voice-over, subtitles, and graphics come together into one finished video — ready to review, download, or publish.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<div class="sprocket bg-panel"></div>
+
+<!-- ===================== PRICING ===================== -->
+<section id="pricing" class="py-24 px-6 bg-panel">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="font-mono text-xs uppercase tracking-widest text-teal mb-3">Pricing</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Start free. Scale when you're ready.</h2>
+      <p class="mt-4 text-muted max-w-xl mx-auto">Simple plans, no long-term contracts. Placeholder pricing shown — final numbers coming soon.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 items-stretch">
+
+      <div class="reveal bg-panel2 border border-line rounded-2xl p-8 flex flex-col">
+        <h3 class="font-display text-xl mb-1">Starter</h3>
+        <p class="text-muted text-sm mb-6">Try the full pipeline, no cost.</p>
+        <div class="font-display text-4xl mb-6">$0<span class="text-base text-muted font-body">/mo</span></div>
+        <ul class="text-sm text-muted space-y-3 mb-8 flex-1">
+          <li>15 videos per month</li>
+          <li>Portrait &amp; landscape</li>
+          <li>Script review &amp; edit</li>
+          <li>Manual download</li>
+        </ul>
+        <a data-cta href="#" class="inline-flex justify-center items-center rounded-full border border-line font-medium px-5 py-2.5 hover:border-muted transition-colors">Start free</a>
+      </div>
+
+      <div class="reveal bg-panel2 border-2 border-amber rounded-2xl p-8 flex flex-col relative">
+        <span class="absolute -top-3 left-8 bg-amber text-ink text-xs font-mono font-semibold px-3 py-1 rounded-full">Most popular</span>
+        <h3 class="font-display text-xl mb-1">Creator</h3>
+        <p class="text-muted text-sm mb-6">For steady, regular publishing.</p>
+        <div class="font-display text-4xl mb-6">$1.9<span class="text-base text-muted font-body">/mo</span></div>
+        <ul class="text-sm text-muted space-y-3 mb-8 flex-1">
+          <li>60 videos per month</li>
+          <li>All customization options</li>
+          <li>Auto-upload to YouTube</li>
+          <li>Full SEO package per video</li>
+        </ul>
+        <a data-cta href="#" class="inline-flex justify-center items-center rounded-full bg-amber text-ink font-semibold px-5 py-2.5 hover:bg-amberdeep transition-colors">Download Now</a>
+      </div>
+
+      <div class="reveal bg-panel2 border border-line rounded-2xl p-8 flex flex-col">
+        <h3 class="font-display text-xl mb-1">Studio</h3>
+        <p class="text-muted text-sm mb-6">For teams and multiple channels.</p>
+        <div class="font-display text-4xl mb-6">$4.9<span class="text-base text-muted font-body">/mo</span></div>
+        <ul class="text-sm text-muted space-y-3 mb-8 flex-1">
+          <li>Unlimited videos</li>
+          <li>Multiple connected channels</li>
+          <li>Priority processing</li>
+          <li>Team script review</li>
+        </ul>
+        <a data-cta href="#" class="inline-flex justify-center items-center rounded-full border border-line font-medium px-5 py-2.5 hover:border-muted transition-colors">Download</a>
+      </div>
+
+    </div>
+    <div class="mt-8">
+        <p>You will need your own Claude API key. Average cost per short video $0.04</p>
+      </div>
+  </div>
+</section>
+
+
+<section id="contact" class="py-24 px-6 bg-panel">
+  <div class="max-w-3xl mx-auto text-center">
+    <div class="reveal">
+      <p class="font-mono text-xs uppercase tracking-widest text-teal mb-3">Get in touch</p>
+      <h2 class="font-display text-3xl sm:text-4xl text-paper mb-4">Questions? Talk to us directly.</h2>
+      <p class="text-muted max-w-xl mx-auto mb-10 leading-relaxed">
+        Join our Discord community for support, feature requests, or just to say hi.
+        We're active there and usually reply fast.
+      </p>
+
+      <a
+        href="https://discord.com/channels/1346146501818318971/1349803582416879720"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 bg-teal hover:bg-amber transition-colors duration-200 text-panel font-mono text-sm uppercase tracking-widest px-8 py-4 rounded-xl"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+          <path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037 19.736 19.736 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.045-.32 13.579.099 18.057a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.062 0a.075.075 0 0 1 .078.01c.12.099.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.891.076.076 0 0 0-.04.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.055c.5-5.177-.838-9.673-3.549-13.66a.06.06 0 0 0-.031-.028zM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.955 2.418-2.157 2.418zm7.974 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+        Join our Discord
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ===================== CLOSING CTA ===================== -->
+<section class="py-28 px-6">
+  <div class="max-w-2xl mx-auto text-center reveal">
+    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted border border-line rounded-full px-3 py-1.5 mb-8">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber rec-dot"></span>
+      Ready when you are
+    </div>
+    <h2 class="font-display text-3xl sm:text-4xl text-paper mb-5">One idea is all it takes.</h2>
+    <p class="text-muted mb-10">Built by Partho to cut production costs and get videos out faster — now open for you to try.</p>
+    <a data-cta href="#" class="inline-flex items-center rounded-full bg-amber text-ink font-semibold px-8 py-3.5 hover:bg-amberdeep transition-colors">
+      Download for free
+    </a>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="border-t border-line py-10 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted">
+    <span class="flex items-center gap-2 font-display text-paper">
+      <span class="w-2 h-2 rounded-full bg-amber"></span>
+      Faceless Studio
+    </span>
+    <span class="font-mono text-xs">© 2026 Faceless Studio. Built by Partho.</span>
+  </div>
+</footer>
+
+<script>
+  // ---- Placeholder download link — swap this for the real one later ----
+  var downloadLink = "https://res.cloudinary.com/dfgox7xc8/raw/upload/v1783407319/fcrxsunilk719eychuqe.zip";
+  document.querySelectorAll('[data-cta]').forEach(function (el) {
+    el.setAttribute('href', downloadLink);
+  });
+
+  // ---- Mobile menu toggle ----
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', function () {
+    var isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+  });
+  document.querySelectorAll('#mobileMenu a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ---- Scroll reveal ----
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if (prefersReducedMotion) {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  } else if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { observer.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // ---- Customization preview pills (visual toggle only, per group) ----
+  document.querySelectorAll('#features + section .pill, section .pill').forEach(function () {});
+  document.querySelectorAll('.pill').forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      var group = pill.parentElement.querySelectorAll('.pill');
+      group.forEach(function (p) {
+        p.classList.remove('active');
+        p.classList.add('text-muted');
+      });
+      pill.classList.add('active');
+      pill.classList.remove('text-muted');
+    });
+  });
+</script>
+
+</body>
+</html>
