@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DownFlix — দেশী Netflix</title>
+<meta name="description" content="বলিউড, হলিউড, তামিল ডাবিং, কোরিয়ান মুভি ও সিরিজ — লাখের উপরে কনটেন্ট, লাইভ দেখুন বা ডাউনলোড করুন। সম্পূর্ণ ফ্রি।">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          flix: {
+            red: '#E50914',
+            dark: '#0a0a0a',
+            dark2: '#141414',
+            dark3: '#1c1c1c',
+          }
+        },
+        fontFamily: {
+          bn: ['"Hind Siliguri"', 'sans-serif'],
+          brand: ['Poppins', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  body { font-family: 'Hind Siliguri', sans-serif; }
+  .brand { font-family: 'Poppins', sans-serif; }
+  .btn-shadow { box-shadow: 0 4px 14px rgba(229, 9, 20, 0.35); }
+</style>
+</head>
+
+<body class="bg-white text-flix-dark2 antialiased">
+
+<!-- Nav -->
+<header class="bg-flix-dark border-b border-white/10">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+    <span class="brand text-2xl sm:text-3xl font-extrabold text-flix-red tracking-tight">DownFlix</span>
+    <a href="#download" class="hidden sm:inline-block bg-flix-red hover:bg-red-700 transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded">
+      ডাউনলোড করুন
+    </a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="bg-flix-dark2 text-white">
+  <div class="max-w-4xl mx-auto px-5 py-20 sm:py-28 text-center">
+    <h1 class="text-3xl sm:text-5xl font-bold leading-tight">
+      ভাই, এটা <span class="text-flix-red">দেশী Netflix</span>
+    </h1>
+    <p class="mt-6 text-base sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+      বলিউড, হলিউড, তামিল ডাবিং, কোরিয়ান মুভি ও সিরিজ মিলিয়ে
+      <span class="text-white font-semibold">লাখের উপরে</span> কনটেন্ট।
+      Live দেখুন, অথবা Download করে রেখে দিন।
+    </p>
+
+    <div class="mt-10 flex flex-col items-center gap-3">
+      <a id="hero-download" href="#download"
+         class="inline-flex items-center gap-2 bg-flix-red hover:bg-red-700 transition-colors text-white font-semibold text-lg px-8 py-4 rounded btn-shadow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3v13"/>
+          <path d="M7 11l5 5 5-5"/>
+          <path d="M5 21h14"/>
+        </svg>
+        অ্যাপ ডাউনলোড করুন
+      </a>
+      <span class="text-sm text-gray-400">সম্পূর্ণ ফ্রি • কোনো Subscription নেই</span>
+    </div>
+  </div>
+
+  <!-- Stat strip -->
+  <div class="border-t border-white/10 bg-flix-dark">
+    <div class="max-w-4xl mx-auto px-5 py-8 grid grid-cols-3 gap-4 text-center">
+      <div>
+        <div class="text-xl sm:text-3xl font-bold text-flix-red">1,00,000+</div>
+        <div class="mt-1 text-xs sm:text-sm text-gray-400">মুভি ও সিরিজ</div>
+      </div>
+      <div>
+        <div class="text-xl sm:text-3xl font-bold text-flix-red">Live + Download</div>
+        <div class="mt-1 text-xs sm:text-sm text-gray-400">দুই অপশনই আছে</div>
+      </div>
+      <div>
+        <div class="text-xl sm:text-3xl font-bold text-flix-red">৳ 0.0</div>
+        <div class="mt-1 text-xs sm:text-sm text-gray-400">খরচ, চিরকাল</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature rows (Netflix-style alternating banded rows) -->
+<section>
+
+  <div class="bg-white">
+    <div class="max-w-5xl mx-auto px-5 py-16 grid sm:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold">লাখের উপরে কনটেন্ট, এক জায়গায়</h2>
+        <p class="mt-4 text-gray-600 leading-relaxed">
+          বলিউড, হলিউড, তামিল ডাবিং আর কোরিয়ান মুভি-টিভি সিরিজ — সব মিলিয়ে বিশাল কালেকশন।
+          যা খুঁজবেন, তাই পাবেন।
+        </p>
+      </div>
+      <div class="flex justify-center">
+        <div class="grid grid-cols-2 gap-3 w-full max-w-xs">
+          <div class="bg-flix-dark2 text-white text-center rounded-lg py-6 font-semibold">বলিউড</div>
+          <div class="bg-flix-dark2 text-white text-center rounded-lg py-6 font-semibold">হলিউড</div>
+          <div class="bg-flix-dark2 text-white text-center rounded-lg py-6 font-semibold">তামিল ডাবিং</div>
+          <div class="bg-flix-dark2 text-white text-center rounded-lg py-6 font-semibold">কোরিয়ান</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-gray-100">
+    <div class="max-w-5xl mx-auto px-5 py-16 grid sm:grid-cols-2 gap-10 items-center">
+      <div class="order-2 sm:order-1 flex justify-center gap-4">
+        <div class="bg-white rounded-lg shadow-sm p-6 w-36 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto text-flix-red" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <div class="mt-3 font-semibold text-sm">Live দেখুন</div>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-6 w-36 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto text-flix-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v13"/>
+            <path d="M7 11l5 5 5-5"/>
+            <path d="M5 21h14"/>
+          </svg>
+          <div class="mt-3 font-semibold text-sm">Download করুন</div>
+        </div>
+      </div>
+      <div class="order-1 sm:order-2">
+        <h2 class="text-2xl sm:text-3xl font-bold">যেভাবে খুশি দেখুন</h2>
+        <p class="mt-4 text-gray-600 leading-relaxed">
+          নেট থাকলে সরাসরি Live দেখুন। আর নেট বাঁচাতে চাইলে Download করে অফলাইনেও দেখতে পারবেন — যখন খুশি, যেভাবে খুশি।
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white">
+    <div class="max-w-5xl mx-auto px-5 py-16 grid sm:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold">সুন্দরভাবে সাজানো, Search Anything</h2>
+        <p class="mt-4 text-gray-600 leading-relaxed">
+          সমস্ত মুভি ইন্টারনেট থেকে কালেকশন করে, শুধু গুছিয়ে সাজানো হয়েছে এই অ্যাপে —
+          যাতে আপনি ঝামেলা ছাড়াই পছন্দের মুভি খুঁজে পান।
+        </p>
+      </div>
+      <div class="flex justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-flix-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="4" width="7" height="7" rx="1"/>
+          <rect x="14" y="4" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Developer note -->
+<section class="bg-flix-dark3 text-white">
+  <div class="max-w-2xl mx-auto px-5 py-16 text-center">
+    <h2 class="text-2xl sm:text-3xl font-bold">ব্যাস, এই কাজটাই অনেকে করে</h2>
+    <p class="mt-4 text-gray-300 leading-relaxed">
+      তারপর তারা <span class="text-white font-semibold">Subscription fee</span> নেয়।
+      DownFlix ফ্রিতেই পাচ্ছেন।
+    </p>
+
+    <div class="mt-10 border-t border-white/10 pt-10">
+      <p class="text-gray-400 text-sm uppercase tracking-widest">ডেভলপারের কথা</p>
+      <p class="mt-3 text-lg text-gray-200 leading-relaxed">
+        "তো এখানে ডেভলপারের লাভ কি? কিছুই না। Hobby project হিসেবে করলাম।"
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Download CTA -->
+<section id="download" class="bg-flix-dark2 text-white">
+  <div class="max-w-2xl mx-auto px-5 py-20 text-center">
+    <h2 class="text-2xl sm:text-4xl font-bold">এখনই ডাউনলোড করুন</h2>
+    <p class="mt-4 text-gray-400">কপিরাইট সমস্যার কারণে এই অ্যাপ প্লে স্টোরে রাখা যাবে না।<br class="hidden sm:block"> এখান থেকে apk ডাউনলোড করে ইন্সটল করতে হবে।</p>
+
+    <a id="download-link" href="#"
+       class="mt-8 inline-flex items-center gap-2 bg-flix-red hover:bg-red-700 transition-colors text-white font-semibold text-lg px-10 py-4 rounded btn-shadow">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v13"/>
+        <path d="M7 11l5 5 5-5"/>
+        <path d="M5 21h14"/>
+      </svg>
+      <span id="download-label">অ্যাপ ডাউনলোড করুন</span>
+    </a>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="bg-white">
+  <div class="max-w-2xl mx-auto px-5 py-16 text-center">
+    <h2 class="text-xl sm:text-2xl font-bold">কোন বিশেষ প্রয়োজন থাকলে?</h2>
+    <p class="mt-3 text-gray-600">মেসেজ করতে পারেন টেলিগ্রামে।</p>
+    <a href="https://t.me/protimZen" target="_blank" rel="noopener"
+       class="mt-6 inline-flex items-center gap-2 border border-gray-300 hover:border-flix-red hover:text-flix-red transition-colors font-semibold px-6 py-3 rounded">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M22 3.5L2.9 11.2c-1.2.5-1.2 1.2-.2 1.5l4.9 1.5 1.9 5.8c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.7l3-14.1c.3-1.2-.4-1.7-1.7-1.3zM8.3 13.9L18 7.5c.5-.3.9-.1.6.3l-8.3 7.5-.3 3.3-1.1-3.6z"/>
+      </svg>
+      t.me/protimZen
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-flix-dark text-gray-400 border-t border-white/10">
+  <div class="max-w-6xl mx-auto px-5 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+    <span class="brand text-flix-red font-bold">DownFlix</span>
+    <span>Hobby project, ভালোবেসে বানানো। কোনো official সম্পর্ক নেই কোনো স্টুডিওর সাথে।</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var links = [document.getElementById('download-link'), document.getElementById('hero-download')];
+    var label = document.getElementById('download-label');
+
+    fetch('/api/download-link')
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (!data.url) throw new Error('no url');
+        links.forEach(function (el) {
+          if (el && el.id === 'hero-download') {
+            el.setAttribute('href', data.url);
+          } else if (el) {
+            el.setAttribute('href', data.url);
+          }
+        });
+      })
+      .catch(function () {
+        if (label) label.textContent = 'লিংক লোড করা যায়নি, আবার চেষ্টা করুন';
+        links.forEach(function (el) {
+          if (!el) return;
+          el.removeAttribute('href');
+          el.addEventListener('click', function (e) {
+            e.preventDefault();
+            location.reload();
+          });
+        });
+      });
+  })();
+</script>
+
+</body>
+</html>

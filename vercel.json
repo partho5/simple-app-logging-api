@@ -2,7 +2,8 @@
   "outputDirectory": "public",
   "rewrites": [
     { "source": "/logging/create", "destination": "/api/logging-create.js" },
-    { "source": "/logging/show", "destination": "/api/logging-show.js" }
+    { "source": "/logging/show", "destination": "/api/logging-show.js" },
+    { "source": "/downFlix", "destination": "/downFlix.html" }
   ],
   "functions": {
     "api/*.js": {

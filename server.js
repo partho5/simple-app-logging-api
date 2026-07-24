@@ -34,6 +34,7 @@ const server = http.createServer(async (req, res) => {
   // Handle your clean vercel.json rewrites manually for local development
   if (pathname === '/logging/create') pathname = '/api/logging-create';
   if (pathname === '/logging/show') pathname = '/api/logging-show';
+  if (pathname === '/downFlix') pathname = '/downFlix.html';
 
 
   try {
