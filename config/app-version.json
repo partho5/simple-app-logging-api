@@ -2,7 +2,7 @@
   "android": {
     "latest_version_code": 2,
     "latest_version_name": "1.2.0",
-    "min_supported_version_code": 1,
+    "min_supported_version_code": 2,
     "apk_url": "https://tmpfiles.org/wnwOQvC4mdSc/app-release.apk",
     "changelog": "New 10+ movies added"
   },
