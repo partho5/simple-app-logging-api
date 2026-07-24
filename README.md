@@ -17,6 +17,19 @@ GET /logging/show?identifier_code=my-app&limit=100
 -> 200 { "logs": [ { "id": 1, "identifier_code": "my-app", "log": "...", "timestamp": "..." }, ... ] }
 ```
 
+```
+GET /api/app-version?platform=android&current_version_code=4
+
+-> 200 {
+  "latest_version_code": 6,
+  "latest_version_name": "1.2.0",
+  "min_supported_version_code": 3,
+  "apk_url": "https://...",
+  "changelog": "Bug fixes and improvements",
+  "force_update": false
+}
+```
+
 ## One-time setup
 
 1. **Create a Supabase project** at https://supabase.com.
@@ -60,6 +73,36 @@ curl "https://your-app.vercel.app/logging/show?identifier_code=my-app&limit=50"
 ```
 
 View logs in a browser: `https://your-app.vercel.app/show-logs.html`
+
+Check app version (e.g. from a mobile client on startup):
+```bash
+curl "https://your-app.vercel.app/api/app-version?platform=android&current_version_code=4"
+```
+
+## Updating the app version config
+
+`/api/app-version` reads from [config/app-version.json](config/app-version.json) — one
+object per platform (`android`, `ios`). To ship a new version, edit that file and push:
+
+```json
+{
+  "android": {
+    "latest_version_code": 6,
+    "latest_version_name": "1.2.0",
+    "min_supported_version_code": 3,
+    "apk_url": "https://example.com/downloads/app-v1.2.0.apk",
+    "changelog": "Bug fixes and improvements"
+  },
+  "ios": { "...": "..." }
+}
+```
+
+- `force_update` in the response is computed automatically:
+  `current_version_code < min_supported_version_code`.
+- On Vercel, a push to the config file triggers a normal auto-deploy (no manual
+  redeploy step) and takes effect in under a minute — no code changes needed.
+- There's no database or admin UI for this; it's just a committed JSON file.
+  If you need true zero-deploy updates later, look at Vercel Edge Config.
 
 ## Notes
 

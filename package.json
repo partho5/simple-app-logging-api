@@ -6,7 +6,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "echo \"No build step required\""
+    "build": "echo \"No build step required\"",
+    "start": "node server.js"
   },
   "dependencies": {
     "dotenv": "^17.4.2"

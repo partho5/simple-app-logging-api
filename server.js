@@ -1,8 +1,21 @@
 // server.js
 
+require('dotenv').config();
+
 const http = require('http');
+const fs = require('fs');
 const path = require('path');
 const url = require('url');
+
+const PUBLIC_DIR = path.join(__dirname, 'public');
+const MIME_TYPES = {
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'application/javascript',
+  '.json': 'application/json',
+  '.png': 'image/png',
+  '.svg': 'image/svg+xml',
+};
 
 const server = http.createServer(async (req, res) => {
   // Simple helper to add standard Vercel response helper methods
@@ -33,6 +46,16 @@ const server = http.createServer(async (req, res) => {
       const handler = require(filePath);
       
       return handler(req, res);
+    }
+
+    // Serve static files from public/ (Vercel does this automatically in prod)
+    const requestedPath = pathname === '/' ? '/index.html' : pathname;
+    const filePath = path.join(PUBLIC_DIR, requestedPath);
+    if (filePath.startsWith(PUBLIC_DIR) && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+      const ext = path.extname(filePath);
+      res.setHeader('Content-Type', MIME_TYPES[ext] || 'application/octet-stream');
+      fs.createReadStream(filePath).pipe(res);
+      return;
     }
 
     // Fallback 404
