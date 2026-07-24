@@ -19,9 +19,8 @@ const server = http.createServer(async (req, res) => {
   let pathname = parsedUrl.pathname;
 
   // Handle your clean vercel.json rewrites manually for local development
-  if (pathname === '/admin') pathname = '/api/admin';
-  if (pathname === '/gist') pathname = '/api/gist';
-  if (pathname === '/validate') pathname = '/api/validate';
+  if (pathname === '/logging/create') pathname = '/api/logging-create';
+  if (pathname === '/logging/show') pathname = '/api/logging-show';
 
 
   try {

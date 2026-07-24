@@ -1,106 +1,69 @@
-# License Validation API (Vercel + JSON-in-Gist)
+# Simple Logging API (Vercel + Supabase)
 
-Matches the request/response contract from `licensing.py`:
+A minimal logging server. Applications POST log entries in, and
+`/public/show-logs.html` displays them.
 
 ```
-POST /api/license/validate
-{ "license_key": "...", "machine_id": "..." }
+POST /logging/create
+Header: x-api-key: <LOG_API_KEY>
+Body:   { "identifier_code": "my-app", "log": { "level": "info", "msg": "hello" } }
 
--> { "licensedTo": "Name", "expireTime": "2026-12-31T23:59:59Z" }   # active
--> { "licensedTo": null,   "expireTime": "2026-01-01T00:00:00Z" }   # invalid/expired
+-> 201 { "ok": true, "log": { "id": 1, "identifier_code": "my-app", "log": "...", "timestamp": "..." } }
 ```
 
-## Why a Gist instead of a plain JSON file in the repo
+```
+GET /logging/show?identifier_code=my-app&limit=100
 
-Vercel serverless functions run on a read-only filesystem, and each
-invocation may hit a different, short-lived instance. A JSON file bundled
-in the deployment can be read, but writes don't persist and aren't shared
-across instances. Since this system needs to permanently remember which
-machine a key is bound to, the data has to live somewhere outside the
-deployment itself.
-
-A private GitHub Gist is used here because it's still just a JSON file
-(no real database, no setup), is free, and easily handles very low
-request volume. If volume ever grows, swap `lib/gist.js` for Vercel KV,
-Blob, or a real DB without touching the endpoint logic.
+-> 200 { "logs": [ { "id": 1, "identifier_code": "my-app", "log": "...", "timestamp": "..." }, ... ] }
+```
 
 ## One-time setup
 
-1. **Create the private gist**
-   - Go to https://gist.github.com, create a new **secret** gist.
-   - Filename: `licenses.json`
-   - Content:
-     ```json
-     {
-       "DEMO-LICENSE-KEY": {
-         "licensedTo": "Test User",
-         "expireTime": "2026-12-31T23:59:59Z",
-         "machine_id": null
-       }
-     }
-     ```
-   - Save it, then copy the gist ID from the URL:
-     `https://gist.github.com/<user>/<GIST_ID>`
+1. **Create a Supabase project** at https://supabase.com.
 
-2. **Create a GitHub token**
-   - https://github.com/settings/tokens → generate a classic token with
-     just the `gist` scope.
+2. **Create the `logs` table** — run this in the Supabase SQL editor:
+   ```sql
+   create table logs (
+     id bigint generated always as identity primary key,
+     identifier_code text not null,
+     log text not null,
+     timestamp timestamptz not null default now()
+   );
 
-3. **Set environment variables in Vercel**
-   (Project Settings → Environment Variables, or `vercel env add`)
-   - `GITHUB_TOKEN`
-   - `GIST_ID`
-   - `GIST_FILENAME` (optional, defaults to `licenses.json`)
-   - `ADMIN_SECRET` (any random string, used to protect `/api/license/admin`)
+   create index logs_identifier_code_idx on logs (identifier_code);
+   ```
+
+3. **Set environment variables** (in `.env` for local dev, and in Vercel
+   Project Settings → Environment Variables for deployment):
+   - `SUPABASE_URL` — your project URL, e.g. `https://xxxx.supabase.co`
+   - `SUPABASE_KEY` — a service role or anon key with insert/select on `logs`
+   - `LOG_API_KEY` — any random secret string, used to protect `/logging/create`
 
 4. **Deploy**
    ```
    vercel deploy --prod
    ```
 
-## Managing licenses
+## Usage
 
-Add a new key:
+Create a log entry:
 ```bash
-curl -X POST https://your-app.vercel.app/api/license/admin \
-  -H "x-admin-secret: <ADMIN_SECRET>" \
+curl -X POST https://your-app.vercel.app/logging/create \
+  -H "x-api-key: <LOG_API_KEY>" \
   -H "Content-Type: application/json" \
-  -d '{"action":"add","license_key":"ABC-123","licensedTo":"Jane Doe","expireTime":"2026-12-31T23:59:59Z"}'
+  -d '{"identifier_code":"my-app","log":{"level":"info","msg":"hello"}}'
 ```
 
-Reset a machine binding (e.g. customer got a new PC):
+Fetch logs:
 ```bash
-curl -X POST https://your-app.vercel.app/api/license/admin \
-  -H "x-admin-secret: <ADMIN_SECRET>" \
-  -H "Content-Type: application/json" \
-  -d '{"action":"reset_machine","license_key":"ABC-123"}'
+curl "https://your-app.vercel.app/logging/show?identifier_code=my-app&limit=50"
 ```
 
-List everything:
-```bash
-curl -X POST https://your-app.vercel.app/api/license/admin \
-  -H "x-admin-secret: <ADMIN_SECRET>" \
-  -H "Content-Type: application/json" \
-  -d '{"action":"list"}'
-```
+View logs in a browser: `https://your-app.vercel.app/show-logs.html`
 
-## Testing validate
+## Notes
 
-```bash
-curl -X POST https://your-app.vercel.app/api/license/validate \
-  -H "Content-Type: application/json" \
-  -d '{"license_key":"DEMO-LICENSE-KEY","machine_id":"test-machine-1"}'
-```
-
-First call binds `test-machine-1` to the key. A second call with a
-different `machine_id` for the same key will return the invalid response.
-
-## Notes on scale
-
-- GitHub's API rate limit for authenticated requests is 5,000/hour, so
-  "few requests only" is comfortably within range.
-- Every validate call that binds a new machine does one gist read + one
-  gist write. Calls that hit an already-bound, matching machine only do
-  a read.
-- Concurrent writes from simultaneous requests could theoretically race
-  (last write wins), but at low volume this isn't a practical concern.
+- `log` is stored as a JSON string (the `create` endpoint stringifies
+  objects automatically; strings are stored as-is).
+- `/logging/show` is unauthenticated by default — add your own protection
+  if the logs are sensitive.

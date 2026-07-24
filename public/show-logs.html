@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Logs</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  h1 { font-size: 1.25rem; }
+  .controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  input, button {
+    font: inherit;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #8888;
+    border-radius: 6px;
+    background: transparent;
+  }
+  button { cursor: pointer; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th, td {
+    text-align: left;
+    border-bottom: 1px solid #8884;
+    padding: 0.5rem;
+    vertical-align: top;
+  }
+  pre { white-space: pre-wrap; word-break: break-word; margin: 0; }
+  .status { margin-bottom: 1rem; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<h1>Logs</h1>
+
+<div class="controls">
+  <input id="identifierCode" type="text" placeholder="identifier_code (optional)">
+  <input id="limit" type="number" placeholder="limit" value="100" min="1" max="500">
+  <button id="refreshBtn">Refresh</button>
+</div>
+
+<div class="status" id="status"></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Identifier code</th>
+      <th>Log</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+
+<script>
+  var statusEl = document.getElementById('status');
+  var rowsEl = document.getElementById('rows');
+  var identifierInput = document.getElementById('identifierCode');
+  var limitInput = document.getElementById('limit');
+
+  function prettyLog(log) {
+    try {
+      var parsed = typeof log === 'string' ? JSON.parse(log) : log;
+      return JSON.stringify(parsed, null, 2);
+    } catch (e) {
+      return String(log);
+    }
+  }
+
+  async function loadLogs() {
+    statusEl.textContent = 'Loading...';
+    rowsEl.innerHTML = '';
+
+    var params = new URLSearchParams();
+    var identifierCode = identifierInput.value.trim();
+    if (identifierCode) params.set('identifier_code', identifierCode);
+    var limit = limitInput.value.trim();
+    if (limit) params.set('limit', limit);
+
+    try {
+      var response = await fetch('/logging/show?' + params.toString());
+      var data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Request failed');
+
+      var logs = data.logs || [];
+      statusEl.textContent = logs.length + ' log(s)';
+
+      logs.forEach(function (row) {
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + row.id + '</td>' +
+          '<td>' + row.identifier_code + '</td>' +
+          '<td><pre>' + prettyLog(row.log).replace(/</g, '&lt;') + '</pre></td>' +
+          '<td>' + row.timestamp + '</td>';
+        rowsEl.appendChild(tr);
+      });
+    } catch (err) {
+      statusEl.textContent = 'Error: ' + err.message;
+    }
+  }
+
+  document.getElementById('refreshBtn').addEventListener('click', loadLogs);
+  loadLogs();
+</script>
+
+</body>
+</html>
